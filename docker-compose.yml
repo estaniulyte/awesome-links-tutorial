@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  tutorial-links-mysql-admin:
+    image: phpmyadmin/phpmyadmin:latest
+    labels:
+      tessen.proxy.http.hostnames: db.tutorial-links
+    ports:
+      - "80:80"
+    environment:
+      PMA_HOST: tutorial-links-mysql
+      MYSQL_ROOT_PASSWORD: $SQL_PASS
+  tutorial-links-mysql:
+    image: mysql:latest
+    labels:
+      tessen.cloudsql.type: mysql
+      tessen.cloudsql.version: MYSQL_8_0
+      tessen.cloudsql.username: $SQL_USER
+      tessen.cloudsql.password: $SQL_PASS
+      tessen.cloudsql.instance: mysql
+    ports:
+      - "3306:3306"
